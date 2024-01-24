@@ -79,7 +79,23 @@ VALUES ('hongGD','APLE5kg','1',TO_DATE('2021-10-21 11:13:25','yyyy-mm-dd hh24:mi
 -- 확인
 SELECT * FROM exbuy;
 
+-- 구매 테이블에 기본키 생성
+-- 1) 기본키에 들어갈 값은 시퀀스로 작성. exbuy_pk_seq 시작값은 1001로 합니디ㅏ.
+CREATE SEQUENCE exbuy_pk_seq START WITH 1001;
+-- 2) 기본키 컬럼 buy_idx number(8) 추가 
+ALTER TABLE exbuy ADD buy_idx number(8);
+-- 3) buy_idx 값 추가 
+-- 4) buy_idx 컬럼에 primary key 제약조건 (NOT NULL, UNIQUE) 추가 
+ALTER  TABLE EXBUY  ADD CONSTRAINT exbuy_pk PRIMARY KEY (buy_idx);
+-- 확인
+SELECT * FROM exbuy;
 
+-- 5) 시퀀스.nextval 함수 사용해 데이터 추가 
+INSERT INTO exbuy(customer_id, code, amount, buy_idx) 
+VALUES('hongGD','APLE5kg','5', exbuy_pk_seq.nextval);
+
+
+-- *************************************************  문제 시작 *************************************************
 -- 조하연 : ID가 'mina012' 인 회원의 가입날짜부터 현재까지 며칠이 지났는지 출력하시오. 
 SELECT TO_DATE(SYSDATE,'YYYY-MM-DD') - TO_DATE(enter_dttm,'YYYY-MM-DD')
 FROM excustomer 
@@ -125,6 +141,12 @@ SELECT  sum(count(*))
 FROM excustomer
 WHERE enter_dttm >= (sysdate  - INTERVAL '6' MONTH)
 GROUP BY customer_id;
+
+-- 모든 회원의 구매 을 출력하시오
+SELECT *
+FROM EXBUY 
+
+
 
 
 

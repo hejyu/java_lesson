@@ -7,3 +7,5 @@ public interface Thinkable extends BeAble{
 	int calculate(int a, int b);	//계산하다.
 
 }
+
+

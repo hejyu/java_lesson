@@ -1,6 +1,6 @@
 package object.day8_interface;
 
-import java.beans.beancontext.BeanContext;
+
 
 import object.day8_interface.beable.AI;
 import object.day8_interface.beable.BeAble;
