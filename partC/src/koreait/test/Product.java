@@ -23,5 +23,12 @@ public abstract class Product {     // [0]
         return prdName;
     }
 
+    @Override
+    public String toString() {
+        return "price=" + price + ", prdName=" + prdName;
+    }
+
+    
+
     
 }
