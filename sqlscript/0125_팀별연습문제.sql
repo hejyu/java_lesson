@@ -4,9 +4,9 @@
 
 
 
--- 문제 : 20대 사용자들이 구매한 가격의 평균, 이름, id 조회 (출제자 : 조이루)
--- 이재훈 : 구매이력이 2 이상인 고객 중에 나이가 20을 초과한 인원만 조회하세요.
--- 노희영 : 2021년 12월1일 부터 2022년 03월17일 사이에 가장 많이 산 사람의 이름 , 물건이름 , 수량순으로 조회하시오
+-- 20대 사용자들이 구매한 가격의 평균, 이름, id 조회
+-- 구매이력이 2 이상인 고객 중에 나이가 20을 초과한 인원만 조회하세요.
+-- 2021년 12월1일 부터 2022년 03월17일 사이에 가장 많이 산 사람의 이름 , 물건이름 , 수량순으로 조회하시오
 
 
 
@@ -27,6 +27,9 @@ AND NAME ='홍길동'
 GROUP BY NAME ;
 
 -- 20살이상 고객님들의 구매한 상품(강주찬)
+-- 출제자 강주찬 문제 변경내용  
+-- 1) `20살`이상 고객님들의 `구매`한 `상품명` 
+-- 2) 테이블 2개 조인으로 문제를 변경하세요. 2개 각각입니다.
 SELECT tp.*
 FROM TBL_PRODUCT tp 
 JOIN TBL_BUY tb 
@@ -34,6 +37,15 @@ ON tp.PCODE  = tb.PCODE
 JOIN TBL_CUSTOM tc
 ON tb.CUSTOMID = tc.CUSTOM_ID
 WHERE tc.AGE > 20;
+-- 1) (강주찬) '25살'이상 고객님들의 '구매'한 '상품명' => 2) 테이블 2개 조인으로 문제를 변경하세요.
+SELECT CUSTOMID , tc.AGE , tb.PCODE , PNAME 
+FROM TBL_CUSTOM tc  
+JOIN TBL_BUY tb
+ON tc.CUSTOM_ID = tb.CUSTOMID
+JOIN TBL_PRODUCT tp 
+ON tb.PCODE = tp.PCODE
+WHERE tc.AGE > 25;
+
 
 -- 사과를 구매한 사람의 이름과 구매한 갯수만큼의 가격의 합을 구해줘(고길현)
 SELECT tc.NAME, sum("구매 금액의 합") FROM 
@@ -63,6 +75,7 @@ SELECT abc.age, abc.pcode FROM (
 SELECT * FROM TBL_BUY tb
 JOIN TBL_CUSTOM tc ON tb.CUSTOMID = tc.CUSTOM_ID AND age>30) abc
 GROUP BY abc.age, abc.pcode;
+
 -- 김승한  : 물건을 구매한 사람 중, 가장 나이가 많은 고객을 찾으려고 한다.
 SELECT tc.CUSTOM_ID, tc.name, tc.age
 FROM TBL_CUSTOM tc
