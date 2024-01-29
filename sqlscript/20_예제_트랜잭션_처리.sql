@@ -93,7 +93,3 @@ DECLARE
  	dbms_output.put_line('고객님 구매금액은 ' || vmoney || ' 입니다');
 		 
 END;		  
-		  
-		  
-		  
-	

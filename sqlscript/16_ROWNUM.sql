@@ -55,22 +55,3 @@ SELECT TP.*
 FROM TBL_PRODUCT  TP
 ORDER BY PRICE DESC 
 FETCH FIRST 2 ROWS ONLY;	--TOP 2(N) 가져오기
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -80,29 +80,3 @@ SELECT  *
 FROM customSale
 WHERE customSale.RANK = 1
 ;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

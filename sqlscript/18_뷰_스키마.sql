@@ -35,5 +35,3 @@ AS
 SELECT *
 FROM V_CUSTOMSALE vc
 WHERE rank  = '1';
-
-

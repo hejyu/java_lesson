@@ -195,13 +195,3 @@ BEGIN
 
 	dbms_output.put_line('결과 : ' || VRESULT );
 END;
-
-
-
-
-
-
-
-
-
-	
