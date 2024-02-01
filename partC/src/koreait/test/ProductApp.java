@@ -1,6 +1,5 @@
 package koreait.test;
 
-import javax.imageio.plugins.tiff.ExifInteroperabilityTagSet;
 
 /**
  * 작성자 : 조하연
@@ -13,6 +12,7 @@ public class ProductApp {
         Product[] cart = new Product[10];
         cart[0] = new Bike(123000, "MTB", 25);
         cart[3] = new Bike(99000, "삼천리", 15);
+
         cart[1] = new Electronics(35000, "USB");
         cart[5] = new Electronics(527000, "스마트TV");
         cart[7] = new Electronics(2250000, "lg냉장고");
@@ -20,6 +20,7 @@ public class ProductApp {
         //[2] power 메소드 : Electronics 자식 클래스의 메소드
         //     ㄴ 다운캐스팅: 현재 부모타입으로 참조하는 것을 자식타입으로 변경
         Electronics tv = null;
+
         // 다운캐스팅시 안전하게 타입 체크를 해줍니다
         if(cart[5] instanceof Electronics){
             tv = (Electronics) cart[5];
@@ -32,10 +33,8 @@ public class ProductApp {
         //[3]  배열 10개 중 객체가 참조된 것은 5개
         //      => null 이면 메소드 실행 예외 발생. NullPointerException   
         System.out.println("------ 10만원 이상인 상품 ------ ");
-        for (int i = 0; i < cart.length - 1; i++) {
-            if(cart[i] == null ) continue;
-            
-            if( cart[i].getPrice() > 100000 ) 
+        for (int i = 0; i <= cart.length - 1; i++) {
+            if(cart[i] != null && cart[i].getPrice() >= 100000 ) 
                 System.out.println(cart[i]);
         }
         // ------------------------ [3] ----------------------------
@@ -49,9 +48,7 @@ public class ProductApp {
         //[4]
         System.out.println("------ 바이크 객체 ride ----- ");
         for (int i = 0; i < cart.length - 1; i++) {
-            if(cart[i] == null ) continue;
-
-            if( cart[i] instanceof Bike ) 
+            if(cart[i] != null && cart[i] instanceof Bike)
                 System.out.println(((Bike) cart[i]).ride());
         }
         // ------------------------ [4] ----------------------------
@@ -65,7 +62,7 @@ public class ProductApp {
 
         //[5]
         if(cart[3] instanceof Bike){
-            Bike b = (Bike) cart[3];
+            Bike b = (Bike) cart[3];    // 다운캐스팅: 현재 부모타입으로 참조하는 것을 자식타입으로 변경
             System.out.println(b.sell(20));
         }
 

@@ -54,42 +54,50 @@ SELECT
 FROM dual;
           
      
-CREATE OR REPLACE PROCEDURE money_of_day
-	(
-		i_cid IN TBL_BUY.CUSTOMID %TYPE,
-		i_date IN VARCHAR2,
-		o_total OUT NUMBER
-	)
-IS 
-	v_pcode tbl_buy.pcode %TYPE;			
-	v_count NUMBER(8);						-- 수량 데이터타입(크기)
-BEGIN 
-	-- 1) 고객 구매한 product pcode, 수량을 변수 v_pcode, v_count에 저장
-	SELECT PCODE, QUANTITY
-	INTO v_pcode, v_count
-	FROM TBL_BUY 
-	WHERE CUSTOMID = i_cid AND TO_CHAR(BUY_DATE,'yyyy-mm-dd') = i_date;
-
-	-- 2) 서브쿼리를 사용해 pcode 가격 조회하고 * v_count 총 구매액을 v_total 변수에 저장    
-	SELECT (SELECT PRICE FROM TBL_PRODUCT WHERE PCODE = v_pcode) * 2
-	INTO o_total 
-	FROM dual;
-
-	dbms_output.put_line('money_of_day 실행 성공');	
-	
+CREATE OR REPLACE PROCEDURE "C##IDEV".money_of_day(
+   p_id IN tbl_custom.custom_id %TYPE,      -- 출력(리턴) 변수
+   p_date IN varchar2,      				-- 출력(리턴) 변수
+   p_money OUT NUMBER
+)
+IS
+   v_pcode TBL_BUY.PCODE %TYPE;
+   v_quantity TBL_BUY.QUANTITY %TYPE;
+   v_price TBL_PRODUCT.PRICE %TYPE;
+BEGIN
+   SELECT PCODE, QUANTITY
+      INTO v_pcode , v_quantity  
+   FROM TBL_BUY
+   WHERE CUSTOMID = p_id AND to_char(buy_date,'yyyy-mm-dd') = p_date;
+   
+   DBMS_OUTPUT.PUT_LINE('* p : ' || v_pcode || v_quantity );
+  
+   SELECT PRICE
+      INTO v_price
+   FROM TBL_PRODUCT
+   WHERE PCODE = v_pcode;
+  
+   DBMS_OUTPUT.PUT_LINE('* p : ' || v_price);
+  
+   SELECT v_quantity * v_price
+      INTO p_money
+   FROM dual;
+  
+   DBMS_OUTPUT.PUT_LINE('* m : ' || p_money);
+  
+   EXCEPTION
+   WHEN no_data_found then
+   DBMS_OUTPUT.PUT_LINE('조건에 맞는 데이터가 없습니다.');
 END;
 
-
-
-DECLARE
- 	vmoney number(8);
- 	vid varchar2(20);
- 	vdate varchar2(20);
- BEGIN
- 	vid := 'mina012';
- 	vdate := '2023-11-10';
- 	money_of_day(vid,vdate,vmoney);
- 	dbms_output.put_line(chr(10) || '고객아이디 : ' || vid || ' 날짜: ' || vdate) ;
- 	dbms_output.put_line('고객님 구매금액은 ' || vmoney || ' 입니다');
-		 
-END;		  
+-- 프로시저 실행
+   DECLARE
+        vmoney number(8);         -- 일반변수 선언할때에는 () 에 크기 필요
+        vid varchar2(20);
+        vdate varchar2(20);
+   BEGIN
+      vid :='mina012';
+      vdate := '2023-11-10';
+      money_of_day(vid,vdate,vmoney);
+      dbms_output.put_line(CHR(10) || '고객ID : ' || vid || ' 날짜: ' || vdate);
+      dbms_output.put_line('고객님의 구매금액은 ' || vmoney || ' 입니다.'); 
+    END;   	  

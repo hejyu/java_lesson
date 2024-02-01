@@ -19,7 +19,7 @@ public class Bike extends Product{
         //      super.prdName = prdName;
         // ㄴ   this.price = price;
         //      this.prdName = prdName;
-        //          ㄴ price, prdName 필드는 protected 필드이므로 자식이 바로 접근 가능
+        //           ㄴ price, prdName 필드는 protected 필드이므로 자식이 바로 접근 가능
         this.speed = speed;
     }
 

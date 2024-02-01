@@ -1,10 +1,12 @@
+
+
 -- 예제 테이블
 CREATE TABLE tbl_member (
-	mno NUMBER(5) not null,    		--회원번호, 반드시 값을 가져야한다
+	mno NUMBER(5) not null,    		    -- 회원번호, 반드시 값을 가져야한다
 	name varchar2(50) not null,   		-- 이름, 반드시 값을 가져야한다
-	email varchar2(100),  			-- 이메일
+	email varchar2(100),  			    -- 이메일
 	join_date DATE default sysdate  	-- 가입날짜 , 날짜형식 : 날짜 패턴 문자열이 자동으로 날짜형식 변환
-						-- 출력형식 :  yyyy-mm-dd hh24:mi:ss, 
+						-- 출력형식 :  yyyy-mm-dd hh24:mi:ss
 				 		-- 디폴트:기본값을 가지는 키워드, 
 				 		-- sysdate : 현재날짜와 시간
 );

@@ -3,12 +3,11 @@ package collection.day10;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeMap;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
 
 
 public class C05MapExample {
+    
     /* 
      * Map < key, value > : key 값으로 value 를 가져오기. key와 value는 모든 타입이 Object 입니다.
      *                        key 는 중복된 값을 가질 수 없습니다. key와 value 모두 순서가 없습니다.

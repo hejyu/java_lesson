@@ -2,7 +2,8 @@
 
 -- 1. 숫자함수(정수 또는 실수 number를 대상으로 하는 함수)
 
--- abc(n) : 절댓값
+-- ABS(n) : 절댓값
+SELECT  ABS(-3.144) FROM dual; 	-- 3.144
 
 -- trunc(숫자, 자릿수) : 자릿수 맞추기 위해서 버림 3.144 -> 3.1
 SELECT  TRUNC(3.144,1) FROM dual; 	-- 3.1

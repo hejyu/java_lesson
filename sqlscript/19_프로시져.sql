@@ -14,6 +14,7 @@ Declare (선언부)
 Executable (실행부)
 Exception (예외 처리부)
 */
+
 SELECT * FROM TBL_CUSTOM tc ;
 
 SELECT * FROM TBL_BUY;
@@ -86,33 +87,47 @@ END;
 EXEC search_custom('hong');
 
 
+
+
+
 -- 구매 수량이 최대인 고객의 이름, 나이 출력하는 프로시저 : max_custom
-CREATE OR REPLACE PROCEDURE max_custom(	  -- METHOD ARGUEMENT (IN JAVA)
-   p_name OUT tbl_custom.NAME %TYPE,      -- 출력(리턴) 변수
+-- 일반적인 sql 은 ? 구매 수량이최대 => tbl_buy 테이블, 고객의 이름, 나이(tbl_custom)
+SELECT name, age
+FROM TBL_CUSTOM tc 
+WHERE tc.CUSTOM_ID = (
+	SELECT tb.customid
+	FROM tbl_buy tb
+	WHERE  tb.quantity = (SELECT max(QUANTITY) FROM tbl_buy )	
+);
+
+
+-- 복습 프로시져
+--   : SQL 로 만든 프로그램  => 여러 개의 DML 로 구성이 됩니다. PLSQL 이라고 부릅니다.
+--						 => 필요에 따라 조회 결과를 저장하는 변수를 사용할 수 있습니다.
+
+
+CREATE OR REPLACE PROCEDURE max_custom(      -- 자바의 메소드 인자와 같은 개념
+   p_name OUT tbl_custom.NAME %TYPE,      -- 출력(리턴)값이 있다면 OUT 변수를 사용합니다.
    p_age OUT tbl_custom.AGE %TYPE
 )
 IS
-   maxval number(5);						-- MAX BUY AMOUNT
-   cid tbl_custom.custom_id %TYPE;			-- PRINT RETURN VARIABLE
+   maxval number(5);
+   cid tbl_custom.custom_id %TYPE;
 BEGIN
-   SELECT max(quantity)				
-      INTO maxval 							-- GENERAL VARIABLE
+   SELECT max(quantity)      -- 구매 수량 최대값
+      INTO maxval          -- 조회 결과를 일반변수에 저장
    FROM tbl_buy; 
 
    SELECT customid
-      INTO cid								-- STORED TO CID ON SELECT RESULT 
+      INTO cid            -- 조회 결과를 일반변수에 저장
    FROM tbl_buy
    WHERE quantity = maxval;
 
    SELECT name,age 
-      INTO p_name , p_age   
+      INTO p_name , p_age      -- 출력매개변수에 저장
    FROM "TBL_CUSTOM" tc 
    WHERE CUSTOM_ID =cid;
-   
-   DBMS_OUTPUT.PUT_LINE('고객이름 : ' || p_name);  
-   DBMS_OUTPUT.PUT_LINE('고객나이 : ' || p_age);
 END;
-
 
 -- RUN PROCEDURE : PARAMETER O 
 DECLARE 
@@ -138,9 +153,10 @@ CREATE SEQUENCE pbuy_seq START WITH 1500;
 ALTER TABLE p_buy ADD money number(7) CHECK (money >=10000);  -- 
 
 /**
- * 웹애플리케이션(인터넷 환경) 개발할 때, JDBC 에서 사용자가 원하는 기능 요청 하나에 sql을 1개씩만 실행을 합니다.
+ * 웹애플리케이션(인터넷 환경) 개발할 때, JDBC 에서 사용자가 원하는 기능 요청을 서버에 보낼 때,
+ * 한번에 sql을 1개씩만 실행 합니다.
  * => 프로시저를 이용하면 요청 한번에 대해 많은 SQL을 실행을 할수 있습니다.
- * =>JDBC : Java DataBase Connection. 자바와 db(오라클,mysql 등등)를 연결하는 프로토콜(규칙).
+ * => JDBC : Java DataBase Connection. 자바와 db(오라클,mysql 등등)를 연결하는 프로토콜(규칙).
  * 
  * 프로시저 사용은
  * 	ㄴ 데이베이스관점에서 `무결성`(정확성) 을 유지할 수 있는 방법.
