@@ -3,7 +3,6 @@ package collection.day10;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sound.midi.Soundbank;
 public class C01ListExample {
 
     public static void main(String[] args) {
