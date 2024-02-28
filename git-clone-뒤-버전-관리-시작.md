@@ -4,16 +4,14 @@
 - 원격 저장소의 내용을 로컬에 복제하는 Git 명령어
 - 원격 저장소의 모든 파일과 커밋 정보를 포함한 모든 정보를 가져온다
 
-### 사용법
-1. 작업 디렉터리(작업트리) > shift + 마우스 우클릭 > Open Git Bash Here 선택
+### 명령어
+1. 작업 디렉토리(`작업트리`) > shift + 마우스 우클릭 > Open Git Bash Here 선택
 
-1. `git clone {remote repository url}` 입력
-
-- `https://github.com/{user name}/{repository name}.git` : 원격 저장소 url
+1. `git clone https://github.com/{user name}/{repository name}.git` 입력
 
     ![alt text](image-9.png)
 
-3. 복제 성공!
+
 
 ## 2. 작업 파일의 버전 관리
 
